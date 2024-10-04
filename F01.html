@@ -4,48 +4,19 @@
     <title>Modelos 3D</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    
-    <nav bgcolor="#FFFF00" class="navbar navbar-expand-lg navbar-dark" >
-        
-        <a class="navbar-brand" href="index.html">Modelos 3D</a>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-        <div class="collapse navbar-collapse" id="navbarSite">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="">Ilha F01</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./F01_padrao.html">Ilha F01 - TESTE</a>
-            </li>
-          </ul>
-        </div>
-     </nav>
   </head>
 
-  
   <body>
-
       <imput type="button" class="btn btn-dark btn-lg">
         <input id="neutral" type="checkbox" checked="true">
           <label for="neutral">Luz: </label>
       </imput>
-
-        <model-viewer src="arquivosBlender_glb/F01.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1.37" auto-rotate environment-image="aircraft_workshop_01_1k.hdr" shadow-softness="0.17">
-          <div class="progress-bar hide" slot="progress-bar">
-              <div class="update-bar"></div>
-          </div>
-          <button slot="ar-button" id="ar-button">
-              VR
-          </button>
-          <div id="ar-prompt">
-              <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
-          </div>
-      </model-viewer>
-      
+      <model-viewer id="neutral-demo" camera-orbit="0deg 80deg auto" camera-controls touch-action="pan-y" auto-rotate autoplay src="F01/F01.gltf" ar ">
+          <effect-composer id="selectiveComposer" render-mode="quality">
+            <selective-bloom-effect strength="5" radius="0.7" threshold="0"></selective-bloom-effect>
+            <color-grade-effect></color-grade-effect>
+          </effect-composer>
+        </model-viewer>
        
         <script type="module">
           const selectiveComposer = document.querySelector("effect-composer#selectiveComposer");
