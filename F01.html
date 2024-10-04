@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Modelos 3D</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <nav bgcolor="#FFFF00" class="navbar navbar-expand-lg navbar-dark" >
+        
+        <a class="navbar-brand" href="index.html">Modelos 3D</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarSite">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="">Ilha F01</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./F01_padrao.html">Ilha F01 - TESTE</a>
+            </li>
+          </ul>
+        </div>
+     </nav>
+  </head>
+
+  
+  <body>
+
+      <imput type="button" class="btn btn-dark btn-lg">
+        <input id="neutral" type="checkbox" checked="true">
+          <label for="neutral">Luz: </label>
+      </imput>
+
+        <model-viewer src="arquivosBlender_glb/F01.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1.37" auto-rotate environment-image="aircraft_workshop_01_1k.hdr" shadow-softness="0.17">
+          <div class="progress-bar hide" slot="progress-bar">
+              <div class="update-bar"></div>
+          </div>
+          <button slot="ar-button" id="ar-button">
+              VR
+          </button>
+          <div id="ar-prompt">
+              <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
+          </div>
+      </model-viewer>
+      
+       
+        <script type="module">
+          const selectiveComposer = document.querySelector("effect-composer#selectiveComposer");
+          const selectiveBloom = selectiveComposer.querySelector("selective-bloom-effect");
+        
+          selectiveComposer.addEventListener('updated-selection', () => {
+            const selection = [];
+            selectiveComposer.selection.forEach((obj) => 
+              (obj.material.emissive.r > 0 
+              || obj.material.emissive.g > 0 
+              || obj.material.emissive.b > 0) &&
+                selection.push(obj)
+            );
+            selectiveBloom.selection = selection;
+          });
+          (() => {
+          const modelViewer = document.querySelector('#neutral-demo');
+          const checkbox = document.querySelector('#neutral');
+          
+          checkbox.addEventListener('change',() => {
+            modelViewer.environmentImage = checkbox.checked ? '' : 'legacy';
+          });
+        })();
+        </script>
+  
+      <link rel="stylesheet" href="style.css">
+      <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+      <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.1/dist/es-module-shims.js"></script>
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
